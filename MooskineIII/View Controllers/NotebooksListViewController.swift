@@ -54,11 +54,13 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
         navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "toolbar-cow"))
         navigationItem.rightBarButtonItem = editButtonItem
         
-        // 01:37 (below trhee lines of code wer copy-pasted from fileprivate func reloadNotebooks()) One things to be aware of, generally, fetchRequests don't have to be sorted but any fetchRequest you use with a fetchResultsController must be sorted so that it has a consistent ordering.
-        // 01:52 We're alrady sorting this one by creationDate, so we do not need to change anything here.
+        // 01:37 (below trhee lines of code were copy-pasted from fileprivate func reloadNotebooks()) One things to be aware of, generally, fetchRequests don't have to be sorted but any fetchRequest you use with a fetchResultsController must be sorted so that it has a consistent ordering.
+        // 01:52 We're alrady sorting this one by creationDate, so we do not need to change anything here (as noticed only later in final Mooskine, below three lines were compied from here/viewDidLoad to 'fileprivate func setUpFetchedResultsController').
+        
         let fetchRequest: NSFetchRequest<Notebook> = Notebook.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        
         
         setUpFetchedResultsController(fetchRequest)
         // 03:03 There is one last step, fetchedResultsControllers track changes and to respond to those changes, we need to implement some delegate methods. We'll look at the delegtate in detail in a moment. But since it doesn't have any mandatory elements, let's go ahead and make our viewController conform.
